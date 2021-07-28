@@ -1,0 +1,7 @@
+# action.yml
+name: 'Build Python manylinux wheel'
+author: 'Stefan Jeske, Max Last'
+description: 'Build manylinux wheels for a Python package'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

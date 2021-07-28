@@ -4,7 +4,7 @@
 set -e -x
 
 # Download dependencies from package server
-yum update -y && yum install -y wget cmake3 git zlib-devel curl openssl-devel
+yum update -y && yum install -y wget git zlib-devel curl openssl-devel #cmake3 
 
 # change into home dir
 cd /home/
@@ -18,7 +18,7 @@ cd Python-2.7.18
 ./configure --enable-optimizations --enable-shared --enable-unicode=ucs4
 make altinstall
 cd ..
-curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+curl "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -o "get-pip.py"
 python2.7 get-pip.py
 python2.7 -m pip install numpy
 
@@ -46,6 +46,13 @@ PYTHON=/usr/local/bin/python2.7 ./configure
 make -j 4 && make install
 cd .. && rm -rf pyilmbase-2.2.0 pyilmbase.2.2.0.tar.gz
 
+# Build cmake 3.20
+wget https://github.com/Kitware/CMake/releases/download/v3.20.0/cmake-3.20.0.tar.gz
+tar -xzf cmake-3.20.0.tar.gz
+cd cmake-3.20.0
+./bootstrap
+make -j 4 && make install
+
 # Build Alembic
 cd /github/workspace/  # Default location of packages in docker action
 python2.7 setup.py bdist_wheel
@@ -53,5 +60,11 @@ python2.7 setup.py bdist_wheel
 # Bundle external shared libraries into the wheels
 find . -type f -iname "*-linux*.whl" -execdir sh -c "auditwheel repair '{}' -w ./ --plat '${PLAT}' || { echo 'Repairing wheels failed.'; auditwheel show '{}'; exit 1; }" \;
 
-echo "Succesfully build wheels:"
-find . -type f -iname "*-manylinux*.whl"
+# Install our wheel
+WHEEL=$(find . -type f -iname "*-manylinux*.whl")
+echo "Successfully built wheel, running a test pip install: $WHEEL"
+python2.7 -m pip install "$WHEEL"
+
+# Run tests before releasing build
+cd ./python/PyAlembic/Tests
+python2.7 -m unittest discover

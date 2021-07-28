@@ -1,0 +1,23 @@
+name: Wheels
+
+on: [workflow_dispatch]
+
+jobs:
+  py27:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/build-manylinux/python2.7
+      - uses: actions/upload-artifact@v2
+        with:
+          name: python2.7wheel
+          path: dist/*-manylinux*.whl
+  py37:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/build-manylinux/python3.7
+      - uses: actions/upload-artifact@v2
+        with:
+          name: python3.7wheel
+          path: dist/*-manylinux*.whl
