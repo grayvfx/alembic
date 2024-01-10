@@ -1,4 +1,4 @@
-FROM aswf/ci-usd:2021.6
+FROM aswf/ci-usd:2022.4
 
 # install auditwheel and dependency
 RUN yum install -y patchelf
