@@ -21,3 +21,12 @@ jobs:
         with:
           name: python3.7wheel
           path: dist/*-manylinux*.whl
+  py39:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/build-manylinux/python3.9
+      - uses: actions/upload-artifact@v2
+        with:
+          name: python3.9wheel
+          path: dist/*-manylinux*.whl
