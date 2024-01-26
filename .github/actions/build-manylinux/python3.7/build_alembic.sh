@@ -12,7 +12,7 @@ python3.7 -m pip show alembic
 find . -type f -iname "*-linux*.whl" -execdir sh -c "auditwheel repair '{}' -w ./ --plat '${PLAT}' || { echo 'Repairing wheels failed.'; auditwheel show '{}'; exit 1; }" \;
 
 # Install our wheel
-WHEEL=$(find . -type f -iname "*-manylinux*.whl")
+WHEEL=$(find . -type f -iname "*-linux*.whl")
 echo "Successfully built wheel, running a test pip install: $WHEEL"
 python3.7 -m pip install --force-reinstall "$WHEEL"
 
