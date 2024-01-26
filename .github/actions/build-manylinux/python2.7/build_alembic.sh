@@ -23,7 +23,7 @@ python2.7 get-pip.py
 python2.7 -m pip install numpy
 
 # Boost 1.55
-wget https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.gz/download -O boost.tar.gz
+wget --no-check-certificate https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.gz/download -O boost.tar.gz
 tar -xzf boost.tar.gz
 cd boost_1_55_0
 ./bootstrap.sh --with-libraries=program_options,python --with-python=/usr/local/bin/python2.7
@@ -31,7 +31,7 @@ cd boost_1_55_0
 cd .. && rm -rf boost_1_55_0 boost.tar.gz
 
 # Ilmbase
-wget http://download.savannah.gnu.org/releases/openexr/ilmbase-2.2.0.tar.gz
+wget --no-check-certificate http://download.savannah.gnu.org/releases/openexr/ilmbase-2.2.0.tar.gz
 tar -xzf ilmbase-2.2.0.tar.gz
 cd ilmbase-2.2.0
 ./configure
@@ -39,7 +39,7 @@ make install -j 4
 cd .. && rm -rf ilmbase-2.2.0 ilmbase.2.2.0.tar.gz
 
 # PyIlmBase
-wget http://download.savannah.gnu.org/releases/openexr/pyilmbase-2.2.0.tar.gz
+wget --no-check-certificate http://download.savannah.gnu.org/releases/openexr/pyilmbase-2.2.0.tar.gz
 tar -xzf pyilmbase-2.2.0.tar.gz
 cd pyilmbase-2.2.0
 PYTHON=/usr/local/bin/python2.7 ./configure 
@@ -47,7 +47,7 @@ make -j 4 && make install
 cd .. && rm -rf pyilmbase-2.2.0 pyilmbase.2.2.0.tar.gz
 
 # Build cmake 3.20
-wget https://github.com/Kitware/CMake/releases/download/v3.20.0/cmake-3.20.0.tar.gz
+wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.20.0/cmake-3.20.0.tar.gz
 tar -xzf cmake-3.20.0.tar.gz
 cd cmake-3.20.0
 ./bootstrap
