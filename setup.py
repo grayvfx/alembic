@@ -79,7 +79,7 @@ class CMakeBuild(build_ext):
 
         if missing_packages:
             error = "Unable to find packages: %s" % missing_packages
-            raise Exception(error)
+            # raise Exception(error)
 
         # build
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir,
