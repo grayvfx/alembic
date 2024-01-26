@@ -15,6 +15,9 @@ cd patchelf-0.14.5
 ./configure
 make -j 4 && make install
 
+# Return to default location docker action
+cd /github/workspace/
+
 # Bundle external shared libraries into the wheels
 find . -type f -iname "*-linux*.whl" -execdir sh -c "auditwheel repair '{}' -w ./ --plat '${PLAT}' || { echo 'Repairing wheels failed.'; auditwheel show '{}'; exit 1; }" \;
 
