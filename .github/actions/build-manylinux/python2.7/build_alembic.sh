@@ -12,7 +12,7 @@ cd /home/
 # Download and build dependencies of alembic
 
 # Download, build and install python
-wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
+wget --no-check-certificate https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
 tar -xzf Python-2.7.18.tgz
 cd Python-2.7.18
 ./configure --enable-optimizations --enable-shared --enable-unicode=ucs4
