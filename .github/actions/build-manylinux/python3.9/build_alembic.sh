@@ -8,6 +8,13 @@ cd /github/workspace/  # Default location of packages in docker action
 python3.9 setup.py bdist_wheel
 python3.9 -m pip show alembic
 
+# Patchelf 0.14.5
+wget --no-check-certificate https://github.com/NixOS/patchelf/releases/download/0.14.5/patchelf-0.14.5.tar.gz
+tar -xzf patchelf-0.14.5.tar.gz
+cd patchelf-0.14.5
+./configure
+make -j 4 && make install
+
 # Bundle external shared libraries into the wheels
 find . -type f -iname "*-linux*.whl" -execdir sh -c "auditwheel repair '{}' -w ./ --plat '${PLAT}' || { echo 'Repairing wheels failed.'; auditwheel show '{}'; exit 1; }" \;
 
